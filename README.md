@@ -1,2 +1,2 @@
 # Povoador-SQL
-Povoador para Oracle SQL
+Gerador de povoamentos em português para Oracle SQL
