@@ -3,15 +3,18 @@ package geradores;
 import java.util.Random;
 
 import exception.ChavesDemaisException;
+import exception.DataInvalidaException;
 import exception.TipoInvalidoException;
 import exception.QtdSaidasInvalidaException;
+import exception.SemNomeException;
 
 public class GeradorPovoamento {
 	private static Random random = new Random();
 	private String nomeTabela;
 	private String parametros;
 	private String[] tipos;
-	public GeradorPovoamento(String nome, String[] entrada) {
+	public GeradorPovoamento(String nome, String[] entrada) throws SemNomeException {
+		if (nome.equals("")) throw new SemNomeException();
 		nomeTabela = nome;
 		parametros = "(";
 		tipos = new String[entrada.length];
@@ -108,11 +111,11 @@ public class GeradorPovoamento {
 		return saida;
 	}
 	
-	private void checagemComandoData(String entrada) throws TipoInvalidoException {
-		if (entrada.endsWith(")")) throw new TipoInvalidoException(entrada);
+	private void checagemComandoData(String entrada) throws TipoInvalidoException, DataInvalidaException {
+		if (!entrada.endsWith(")")) throw new TipoInvalidoException(entrada);
 		if ((entrada.indexOf(',') == -1) || (entrada.indexOf(',') != entrada.lastIndexOf(','))) throw new TipoInvalidoException(entrada);
 		String[] limite = entrada.substring(5, entrada.length()-1).split(",");
-		if (!checagemFormatoData(limite[0]) || !checagemFormatoData(limite[1])) throw new TipoInvalidoException(entrada);
+		if (!checagemFormatoData(limite[0]) || !checagemFormatoData(limite[1])) throw new DataInvalidaException(entrada);
 	}
 
 	private boolean checagemFormatoData(String data) {

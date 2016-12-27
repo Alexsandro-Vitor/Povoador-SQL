@@ -24,10 +24,11 @@ public class Ajuda extends JFrame {
 		+ "Este programa é um gerador de povoamentos para modelos relacionais implementados em Oracle SQL+.",
 		"------ COMO USAR ------\n"
 		+ "\n"
-		+ "*No campo \"Nome da Tabela\", insira o nome da tabela e em \"Saídas\" insira a quantidade de inserções (inserções > 0) que deseja"
-		+ " gerar.\n\n"
+		+ "*No campo \"Nome da Tabela\", insira o nome da tabela (nome != \"\") e em \"Saídas\" insira a quantidade de inserções (inserções > 0) que"
+		+ " deseja gerar.\n\n"
 		+ "*No espaço da esquerda, digite os nomes dos atributos e seus tipos, separados por espaço (' '). Cada atributo e tipo devem estar em sua"
-		+ " própria linha. Assim como o SQL+, o programa não é case-sensitive. No caso de chaves para outras tabelas, use o tipo da chave da tabela\n\n"
+		+ " própria linha. Assim como o SQL+, o programa não é case-sensitive. No caso de chaves para outras tabelas, use o tipo da chave da"
+		+ " tabela.\n\n"
 		+ "*Por fim, clique em \"Povoar\". O povoamento gerado aparecerá no espaço da direita.",
 		"------ TIPOS DE ENTRADA ------\n"
 		+ "\n"
@@ -42,6 +43,7 @@ public class Ajuda extends JFrame {
 		+ " tabela use uma chave texto\n\n"
 		+ "*CPF: Gera um CPF no formato 'xxxxxxxxxxx'\n\n"
 		+ "*CPF_FORMATADO: Gera um CPF no formato 'xxx.xxx.xxx-xx'\n\n"
+		+ "*DATA(min, max): Gera uma data entre a data em min e a data em max. Ambos min e max devem ser inseridos na forma DD/MM/AAAA.\n\n"
 		+ "*EMAIL: Retorna um email com uma sequencia de letras e uma terminação aleatórias. Se for usado após NOME, usará as iniciais do nome"
 		+ " gerado.\n\n"
 		+ "*IDADE_ADOLESCENTE: Gera uma idade inteira de 13 a 17\n\n"

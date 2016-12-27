@@ -5,6 +5,8 @@ import geradores.GeradorPovoamento;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.SemNomeException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -36,8 +38,9 @@ public class Main {
 		for (int i = 0; i < comando.size(); i++) {
 			colunas[i] = comando.get(i);
 		}
-		GeradorPovoamento povoador = new GeradorPovoamento(entrada, colunas);
+		GeradorPovoamento povoador;
 		try {
+			povoador = new GeradorPovoamento(entrada, colunas);
 			System.out.println(povoador.povoar(3));
 		} catch (Exception e) {
 			e.printStackTrace();
