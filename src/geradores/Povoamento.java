@@ -2,7 +2,7 @@ package geradores;
 
 import java.util.Random;
 
-import exception.TipoInvalidoException;
+import exception.ComandoInvalidoException;
 import geradores.data.*;
 import geradores.numero.*;
 import geradores.varchar.*;
@@ -42,27 +42,27 @@ public class Povoamento {
 		String saida = "INSERT INTO " + nomeTabela + " " + parametros + " VALUES (\n";
 		PovoamentoVariaveis variaveis = new PovoamentoVariaveis();	//Variaveis para evitar inconsistencias
 		for (int i = 0; i < tipos.length; i++) {
-			if (tipos[i].equalsIgnoreCase("CELULAR")) saida += gerarVarchar(new GeradorCelular());
-			else if (tipos[i].equalsIgnoreCase("CELULAR_DDD")) saida += gerarVarchar(new GeradorCelularDdd());
-			else if (tipos[i].equalsIgnoreCase("CELULAR_FORMATADO")) saida += gerarVarchar(new GeradorCelularFormatado());
-			else if (tipos[i].equalsIgnoreCase("CELULAR_FORMATADO_DDD")) saida += gerarVarchar(new GeradorCelularDddFormatado());
-			else if (tipos[i].equalsIgnoreCase("CEP")) saida += gerarVarchar(new GeradorCep());
-			else if (tipos[i].equalsIgnoreCase("CHAVE_INT")) saida += gerar(new GeradorChave(variaveis, chave));
-			else if (tipos[i].equalsIgnoreCase("CHAVE_STRING")) saida += gerarVarchar(new GeradorChave(variaveis, chave));
-			else if (tipos[i].equalsIgnoreCase("CPF")) saida += gerarVarchar(new GeradorCpf());
-			else if (tipos[i].equalsIgnoreCase("CPF_FORMATADO")) saida += gerarVarchar(new GeradorCpfFormatado());
-			else if (tipos[i].substring(0, 5).equalsIgnoreCase("DATA(")) saida += gerar(new GeradorData(tipos[i]));
-			else if (tipos[i].equalsIgnoreCase("EMAIL")) saida += gerarVarchar(new GeradorEmail(variaveis));
-			else if (tipos[i].equalsIgnoreCase("IDADE_ADOLESCENTE")) saida += gerar(new GeradorIdadeAdolescente());
-			else if (tipos[i].equalsIgnoreCase("IDADE_ADULTO")) saida += gerar(new GeradorIdadeAdulto());
-			else if (tipos[i].equalsIgnoreCase("IDADE_CRIANCA")) saida += gerar(new GeradorIdadeCrianca());
-			else if (tipos[i].equalsIgnoreCase("IDADE_MENOR")) saida += gerar(new GeradorIdadeMenor());
-			else if (tipos[i].substring(0, 4).equalsIgnoreCase("INT(")) saida += gerar(new GeradorInt(tipos[i]));
-			else if (tipos[i].equalsIgnoreCase("NOME")) saida += gerarVarchar(new GeradorNome(variaveis));
-			else if (tipos[i].equalsIgnoreCase("PAIS")) saida += gerarVarchar(new GeradorPais());
-			else if (tipos[i].equalsIgnoreCase("PROFISSAO")) saida += gerarVarchar(new GeradorProfissao());
-			else if (tipos[i].equalsIgnoreCase("SEXO")) saida += gerarVarchar(new GeradorSexo(variaveis));
-			else throw new TipoInvalidoException(tipos[i]);
+			if (checarComando(tipos[i], "CELULAR")) saida += gerarVarchar(new GeradorCelular());
+			else if (checarComando(tipos[i], "CELULAR_DDD")) saida += gerarVarchar(new GeradorCelularDdd());
+			else if (checarComando(tipos[i], "CELULAR_FORMATADO")) saida += gerarVarchar(new GeradorCelularFormatado());
+			else if (checarComando(tipos[i], "CELULAR_FORMATADO_DDD")) saida += gerarVarchar(new GeradorCelularDddFormatado());
+			else if (checarComando(tipos[i], "CEP")) saida += gerarVarchar(new GeradorCep());
+			else if (checarComando(tipos[i], "CHAVE_INT")) saida += gerar(new GeradorChave(variaveis, chave));
+			else if (checarComando(tipos[i], "CHAVE_STRING")) saida += gerarVarchar(new GeradorChave(variaveis, chave));
+			else if (checarComando(tipos[i], "CPF")) saida += gerarVarchar(new GeradorCpf());
+			else if (checarComando(tipos[i], "CPF_FORMATADO")) saida += gerarVarchar(new GeradorCpfFormatado());
+			else if (checarComando(tipos[i], "DATA")) saida += gerar(new GeradorData(tipos[i]));
+			else if (checarComando(tipos[i], "EMAIL")) saida += gerarVarchar(new GeradorEmail(variaveis));
+			else if (checarComando(tipos[i], "IDADE_ADOLESCENTE")) saida += gerar(new GeradorIdadeAdolescente());
+			else if (checarComando(tipos[i], "IDADE_ADULTO")) saida += gerar(new GeradorIdadeAdulto());
+			else if (checarComando(tipos[i], "IDADE_CRIANCA")) saida += gerar(new GeradorIdadeCrianca());
+			else if (checarComando(tipos[i], "IDADE_MENOR")) saida += gerar(new GeradorIdadeMenor());
+			else if (checarComando(tipos[i], "INT")) saida += gerar(new GeradorInt(tipos[i]));
+			else if (checarComando(tipos[i], "NOME")) saida += gerarVarchar(new GeradorNome(variaveis));
+			else if (checarComando(tipos[i], "PAIS")) saida += gerarVarchar(new GeradorPais());
+			else if (checarComando(tipos[i], "PROFISSAO")) saida += gerarVarchar(new GeradorProfissao());
+			else if (checarComando(tipos[i], "SEXO")) saida += gerarVarchar(new GeradorSexo(variaveis));
+			else throw new ComandoInvalidoException(tipos[i]);
 
 			//Adiciona a virgula e a quebra de linha (p/ identação) ou fecha o INSERT INTO se for o último valor gerado
 			if (i < tipos.length - 1) saida += ",\n";
@@ -76,6 +76,12 @@ public class Povoamento {
 			entrada = entrada.replace(" ", "");
 		}
 		return entrada;
+	}
+	
+	private boolean checarComando(String entrada, String comando) {
+		if (entrada.equalsIgnoreCase(comando)) return true;
+		else if (entrada.length() > comando.length()) return (entrada.substring(0, comando.length()+1).equalsIgnoreCase(comando + "("));
+		return false;
 	}
 	
 	private String gerarVarchar(GeradorAbstrato gerador) throws Exception {
