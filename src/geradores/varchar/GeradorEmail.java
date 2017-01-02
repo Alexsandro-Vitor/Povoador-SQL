@@ -16,41 +16,35 @@ public class GeradorEmail extends GeradorAbstrato {
 	}
 	
 	public String gerar() {
-		if (variaveis.nome == null) variaveis.email = siglaAleatoria();
-		else variaveis.email = gerarEmail(variaveis.nome);
+		if (variaveis.email == null) variaveis.email = siglaAleatoria();
 		return variaveis.email + terminacaoAleatoria();
-	}
-	
-	private static String gerarEmail(String nome) {
-		String saida = "" + nome.charAt(0);
-		for (int i = 1; i < nome.length(); i++) {
-			if (nome.charAt(i-1) == ' ') saida = saida + nome.charAt(i);
-		}
-		return removeAcentos(saida);
-	}
-	
-	private static String removeAcentos(String nome) {
-		nome = nome.toLowerCase();
-		String saida = "";
-		for (int i = 0; i < nome.length(); i++) {
-			char letra = nome.charAt(i);
-			if (letra == 'ã' || letra == 'á' || letra == 'à' || letra == 'â') saida = saida + 'a';
-			else if (letra == 'é' || letra == 'è' || letra == 'ê') saida = saida + 'e';
-			else if (letra == 'í' || letra == 'ì' || letra == 'î') saida = saida + 'i';
-			else if (letra == 'õ' || letra == 'ó' || letra == 'ò' || letra == 'ô') saida = saida + 'o';
-			else if (letra == 'ú' || letra == 'ù' || letra == 'û') saida = saida + 'u';
-			else saida = saida + letra;
-		}
-		return saida;
 	}
 	
 	private String siglaAleatoria() {
 		int tamanho = 3 + Povoamento.random.nextInt(2);
 		String saida = "";
+		int[] letrasAleatorias = gerarNumerosDistintos(tamanho, 26);
 		for (int i = 0; i < tamanho; i++) {
-			saida = saida + (char)('a' + Povoamento.random.nextInt(26));
+			saida = saida + (char)('a' + letrasAleatorias[i]);
 		}
 		return saida;
+	}
+	
+	private static int[] gerarNumerosDistintos(int valores, int valorMaximo) {
+		int[] numeros = new int[valores];
+		boolean[] valorEscolhido = new boolean[valorMaximo];
+		valorEscolhido['k' - 'a'] = true;	//Não há sobrenomes iniciando com k e w, então preciso disso
+		valorEscolhido['w' - 'a'] = true;	// para garantir que o email nao tenha essas letras
+		for (int i = 0; i < numeros.length; i++) {
+			int proxNumero;
+			proxNumero = Povoamento.random.nextInt(valorMaximo - i - 2);
+			for (int j = 0; j <= proxNumero && j < valorMaximo; j++) {
+				if (valorEscolhido[j]) proxNumero++;
+			}
+			numeros[i] = proxNumero;
+			valorEscolhido[proxNumero] = true;
+		}
+		return numeros;
 	}
 	
 	private String terminacaoAleatoria() {
