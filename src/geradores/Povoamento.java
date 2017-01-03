@@ -16,12 +16,12 @@ public class Povoamento {
 	private String[] tipos;
 	public Povoamento(String nome, String[] entrada) throws SemNomeException {
 		if (nome.equals("")) throw new SemNomeException();
-		nomeTabela = nome;
+		nomeTabela = nome.toLowerCase();
 		parametros = "(";
 		tipos = new String[entrada.length];
 		for (int i = 0; i < entrada.length; i++) {
 			String[] param = entrada[i].split(" ", 2);
-			parametros = parametros + param[0];
+			parametros = parametros + param[0].toLowerCase();
 			tipos[i] = removerEspacos(param[1]);
 			if (i < entrada.length-1) parametros = parametros + ", ";
 		}
