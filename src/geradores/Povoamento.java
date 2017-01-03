@@ -62,6 +62,7 @@ public class Povoamento {
 			else if (checarComando(tipos[i], "PAIS")) saida += gerarVarchar(new GeradorPais());
 			else if (checarComando(tipos[i], "PROFISSAO")) saida += gerarVarchar(new GeradorProfissao());
 			else if (checarComando(tipos[i], "SEXO")) saida += gerarVarchar(new GeradorSexo(variaveis));
+			else if ((tipos[i].charAt(0) == '{') && (tipos[i].charAt(tipos[i].length()-1) == '}')) saida += gerar(new GeradorEspecial(tipos[i]));
 			else throw new ComandoInvalidoException(tipos[i]);
 
 			//Adiciona a virgula e a quebra de linha (p/ identação) ou fecha o INSERT INTO se for o último valor gerado
@@ -72,8 +73,18 @@ public class Povoamento {
 	}
 
 	private String removerEspacos(String entrada) {
-		while (entrada.contains(" ")) {
-			entrada = entrada.replace(" ", "");
+		entrada = removerEspacosCaractere(entrada, '(');
+		entrada = removerEspacosCaractere(entrada, ',');
+		entrada = removerEspacosCaractere(entrada, ')');
+		return entrada;
+	}
+	
+	private String removerEspacosCaractere(String entrada, char c) {
+		while (entrada.contains(" " + c)) {
+			entrada = entrada.replace(" " + c, "" + c);
+		}
+		while (entrada.contains(c + " ")) {
+			entrada = entrada.replace(c + " ", c + "");
 		}
 		return entrada;
 	}
