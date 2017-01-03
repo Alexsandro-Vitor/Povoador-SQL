@@ -24,8 +24,8 @@ public class Ajuda extends JFrame {
 		+ "Este programa é um gerador de povoamentos para modelos relacionais implementados em Oracle SQL+.",
 		"------ COMO USAR ------\n"
 		+ "\n"
-		+ "*No campo \"Nome da Tabela\", insira o nome da tabela (nome != \"\") e em \"Saídas\" insira a quantidade de inserções (inserções > 0) que"
-		+ " deseja gerar.\n\n"
+		+ "*No campo \"Nome da Tabela\", insira o nome da tabela (nome != \"\") e em \"Saídas\" insira a quantidade de inserções (inserções > 0)"
+		+ " que deseja gerar.\n\n"
 		+ "*No espaço da esquerda, digite os nomes dos atributos e seus tipos, separados por espaço (' '). Cada atributo e tipo devem estar em sua"
 		+ " própria linha. Assim como o SQL+, o programa não é case-sensitive. No caso de chaves para outras tabelas, use o tipo da chave da"
 		+ " tabela.\n\n"
@@ -37,8 +37,8 @@ public class Ajuda extends JFrame {
 		+ "*CELULAR_DDD: Gera um número de celular no formato 'xx9xxxxxxxx'\n\n"
 		+ "*CELULAR_FORMATADO: Gera um número de celular no formato '9xxxx-xxxx'\n\n"
 		+ "*CELULAR_FORMATADO_DDD: Gera um número de celular no formato '(xx)9xxxx-xxxx'\n\n"
-		+ "*CHAVE_INT: Gera um valor que começa em 0 e é incrementado em cada inserção gerada. Deve ser usado para gerar as chaves caso a tabela use"
-		+ " uma chave inteira\n\n"
+		+ "*CHAVE_INT: Gera um valor que começa em 0 e é incrementado em cada inserção gerada. Deve ser usado para gerar as chaves caso a tabela"
+		+ " use uma chave inteira\n\n"
 		+ "*CHAVE_STRING: Gera um valor que começa em '0' e é incrementado em cada inserção gerada. Deve ser usado para gerar as chaves caso a"
 		+ " tabela use uma chave texto\n\n"
 		+ "*CPF: Gera um CPF no formato 'xxxxxxxxxxx'\n\n"
@@ -53,9 +53,27 @@ public class Ajuda extends JFrame {
 		+ "*INT(min, max): Gera um valor inteiro de min a max\n\n"
 		+ "*NOME: Gera um nome com 1 ou 2 nomes e 1 ou 2 sobrenomes sorteados aleatoriamente. Se for usado após EMAIL, retornará um nome cujas"
 		+ " iniciais serão iguais ao email gerado anteriormente.\n\n"
-		+ "*PAIS: Retorna um país sorteado aleatoriamente\n\n"
-		+ "*PROFISSAO: Retorna uma profissão sorteada aleatoriamente\n\n"
-		+ "*SEXO: Retorna 'M' (masculino) ou 'F' (feminino). Caso NOME e SEXO sejam ambos usados, o programa gera nomes e sexos compatíveis."};
+		+ "*PAIS: Retorna um país sorteado aleatoriamente.\n\n"
+		+ "*PROFISSAO: Retorna uma profissão sorteada aleatoriamente.\n\n"
+		+ "*SEXO: Retorna 'M' (masculino) ou 'F' (feminino). Caso NOME e SEXO sejam ambos usados, o programa gera nomes e sexos compatíveis.",
+		"------ ESCOLHENDO SUAS PRÓPRIAS ENTRADAS ------\n"
+		+ "\n"
+		+ "É possível usar seu próprio conjunto de entradas no povoador. Para isso, no lugar do tipo, use chaves ({, }), e coloque as entradas"
+		+ " dentro, separadas por vírgula.\n\n"
+		+ "Ex. (3 saídas):\n"
+		+ "Entrada:\n"
+		+ "fruta {'Abacaxi', 'Banana', 'Melancia'}\n"
+		+ "Saída:\n"
+		+ "INSERT INTO teste (fruta) VALUES (\n"
+		+ "	'Melancia'\n"
+		+ ");\n"
+		+ "INSERT INTO teste (fruta) VALUES (\n"
+		+ "	'Abacaxi'\n"
+		+ ");\n"
+		+ "INSERT INTO teste (fruta) VALUES (\n"
+		+ "	'Banana'\n"
+		+ ");"
+		};
 
 	/**
 	 * Create the frame.
@@ -75,7 +93,7 @@ public class Ajuda extends JFrame {
 				atualizaTexto();
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sobre", "Como usar", "Tipos de entrada"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sobre", "Como usar", "Tipos de entrada", "Escolhendo suas próprias entradas"}));
 		comboBox.setBounds(10, 11, 424, 20);
 		contentPane.add(comboBox);
 		
@@ -84,6 +102,7 @@ public class Ajuda extends JFrame {
 		contentPane.add(scrollPane);
 		
 		txtrAjuda = new JTextArea();
+		txtrAjuda.setTabSize(2);
 		txtrAjuda.setEditable(false);
 		txtrAjuda.setText(ajuda[0]);
 		txtrAjuda.setWrapStyleWord(true);
