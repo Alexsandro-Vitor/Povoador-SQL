@@ -1,7 +1,7 @@
 package geradores.data;
 
 import exception.DataInvalidaException;
-import exception.TipoInvalidoException;
+import exception.ComandoInvalidoException;
 import geradores.GeradorAbstrato;
 import geradores.Povoamento;
 
@@ -12,7 +12,7 @@ public class GeradorData extends GeradorAbstrato {
 		this.comando = comando;
 	}
 	
-	public String gerar() throws TipoInvalidoException, DataInvalidaException {
+	public String gerar() throws ComandoInvalidoException, DataInvalidaException {
 		checagemComandoData(comando);
 		String[] limite = comando.substring(5, comando.length()-1).split(",");
 		int[] anos = {Integer.parseInt(limite[0].substring(6)), Integer.parseInt(limite[1].substring(6))};
@@ -21,9 +21,9 @@ public class GeradorData extends GeradorAbstrato {
 		return retornarData(dias, meses, anos);
 	}
 	
-	private void checagemComandoData(String entrada) throws TipoInvalidoException, DataInvalidaException {
-		if (!entrada.endsWith(")")) throw new TipoInvalidoException(entrada);
-		if ((entrada.indexOf(',') == -1) || (entrada.indexOf(',') != entrada.lastIndexOf(','))) throw new TipoInvalidoException(entrada);
+	private void checagemComandoData(String entrada) throws ComandoInvalidoException, DataInvalidaException {
+		if (!entrada.endsWith(")")) throw new ComandoInvalidoException(entrada);
+		if ((entrada.indexOf(',') == -1) || (entrada.indexOf(',') != entrada.lastIndexOf(','))) throw new ComandoInvalidoException(entrada);
 		String[] limite = entrada.substring(5, entrada.length()-1).split(",");
 		if (!checagemFormatoData(limite[0]) || !checagemFormatoData(limite[1])) throw new DataInvalidaException(entrada);
 	}
@@ -48,7 +48,7 @@ public class GeradorData extends GeradorAbstrato {
 		int min = diaMinimo(dias[0], mes, meses[0], ano, anos[0]);
 		int max = diaMaximo(dias[1], mes, meses[1], ano, anos[1]);
 		int dia = min + Povoamento.random.nextInt(max - min + 1);
-		return "	TO_DATE('" + dia + "/" + mes + "/" + ano + "', 'dd/MM/yyyy')";
+		return "TO_DATE('" + dia + "/" + mes + "/" + ano + "', 'dd/MM/yyyy')";
 	}
 	
 	private int gerarAno(int anoMin, int anoMax) {
