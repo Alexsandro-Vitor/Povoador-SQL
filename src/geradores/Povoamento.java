@@ -1,5 +1,6 @@
 package geradores;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import exception.ComandoInvalidoException;
@@ -14,6 +15,10 @@ public class Povoamento {
 	private String nomeTabela;
 	private String parametros;
 	private String[] tipos;
+	private boolean modoOR;	//modoOR {true: Gera um povoamento OR; false: Gera um povoamento relacional}
+	private int identacoes;
+	private ArrayList<Integer> elementos;
+
 	public Povoamento(String nome, String[] entrada) throws SemNomeException {
 		if (nome.equals("")) throw new SemNomeException();
 		nomeTabela = nome.toLowerCase();
@@ -21,11 +26,18 @@ public class Povoamento {
 		tipos = new String[entrada.length];
 		for (int i = 0; i < entrada.length; i++) {
 			String[] param = entrada[i].split(" ", 2);
-			parametros = parametros + param[0].toLowerCase();
 			tipos[i] = removerEspacos(param[1]);
-			if (i < entrada.length-1) parametros = parametros + ", ";
+			//Caso especial do comando TIPO
+			if (checarComando(tipos[i], "TIPO")) {
+				tipos[i] = "TIPO(" + param[0].toLowerCase() + "," + tipos[i].substring(5);
+				modoOR = true;
+			} else {
+				parametros = parametros + param[0].toLowerCase();
+				if (i < entrada.length-1) parametros = parametros + ", ";
+			}
 		}
 		parametros = parametros + ")";
+		elementos = new ArrayList<Integer>();
 	}
 
 	public String povoar(int qtd) throws Exception {
@@ -33,13 +45,14 @@ public class Povoamento {
 		String saida = "";
 		for (int i = 0; i < qtd; i++) {
 			String insercao = this.gerarInsercao(i + "");
-			saida = saida + insercao + "\n";
+			saida += insercao + "\n\n";
 		}
 		return saida;
 	}
 
 	public String gerarInsercao(String chave) throws Exception {
-		String saida = "INSERT INTO " + nomeTabela + " " + parametros + " VALUES (\n";
+		String saida = "INSERT INTO " + nomeTabela + " ";
+		saida += modoOR ? ("VALUES (\n") : (parametros + " VALUES (\n") ;
 		PovoamentoVariaveis variaveis = new PovoamentoVariaveis();	//Variaveis para evitar inconsistencias
 		for (int i = 0; i < tipos.length; i++) {
 			if (checarComando(tipos[i], "CELULAR")) saida += gerarVarchar(new GeradorCelular());
@@ -63,11 +76,22 @@ public class Povoamento {
 			else if (checarComando(tipos[i], "PROFISSAO")) saida += gerarVarchar(new GeradorProfissao());
 			else if (checarComando(tipos[i], "SEXO")) saida += gerarVarchar(new GeradorSexo(variaveis));
 			else if ((tipos[i].charAt(0) == '{') && (tipos[i].charAt(tipos[i].length()-1) == '}')) saida += gerar(new GeradorEspecial(tipos[i]));
+			else if (checarComando(tipos[i], "TIPO")) saida += gerarTipo(tipos[i]);
 			else throw new ComandoInvalidoException(tipos[i]);
 
+			//Conta os elementos do tipo para saber se todos já foram gerados
+			while (elementos.size() > 0 && !checarComando(tipos[i], "TIPO")) {
+				elementos.set(elementos.size()-1, elementos.get(elementos.size()-1) - 1);
+				if (elementos.get(elementos.size()-1) <= 0) {
+					elementos.remove(elementos.size()-1);
+					saida += "\n" + "	" + identar(--identacoes) + ")";
+				} else break;
+			}
+
 			//Adiciona a virgula e a quebra de linha (p/ identação) ou fecha o INSERT INTO se for o último valor gerado
-			if (i < tipos.length - 1) saida += ",\n";
-			else saida = saida + "\n);";
+			if (checarComando(tipos[i], "TIPO")) saida += "\n";
+			else if (i < tipos.length - 1) saida += ",\n";
+			else saida += "\n);";
 		}
 		return saida;
 	}
@@ -78,7 +102,7 @@ public class Povoamento {
 		entrada = removerEspacosCaractere(entrada, ')');
 		return entrada;
 	}
-	
+
 	private String removerEspacosCaractere(String entrada, char c) {
 		while (entrada.contains(" " + c)) {
 			entrada = entrada.replace(" " + c, "" + c);
@@ -88,19 +112,34 @@ public class Povoamento {
 		}
 		return entrada;
 	}
-	
+
 	private boolean checarComando(String entrada, String comando) {
 		if (entrada.equalsIgnoreCase(comando)) return true;
 		else if (entrada.length() > comando.length()) return (entrada.substring(0, comando.length()+1).equalsIgnoreCase(comando + "("));
 		return false;
 	}
-	
+
 	private String gerarVarchar(GeradorAbstrato gerador) throws Exception {
-		return "	'" + gerador.gerar() + "'";
+		return identar(identacoes) + "	'" + gerador.gerar() + "'";
 	}
-	
+
 	//Metodo para gerar entradas que nao sejam varchars
 	private String gerar(GeradorAbstrato gerador) throws Exception {
-		return "	" + gerador.gerar();
+		return identar(identacoes) + "	" + gerador.gerar();
+	}
+
+	private String gerarTipo(String comando) {
+		identacoes++;
+		String[] parametros = comando.substring(5, comando.length()-1).split(",");
+		elementos.add(Integer.parseInt(parametros[1]));
+		return identar(identacoes-1) + "	" + parametros[0] + "(";
+	}
+
+	private String identar(int tabulacoes) {
+		String saida = "";
+		while (tabulacoes-- > 0) {
+			saida += "	";
+		}
+		return saida;
 	}
 }
