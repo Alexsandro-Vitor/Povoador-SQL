@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -29,7 +27,27 @@ public class Ajuda extends JFrame {
 		+ "*No espaço da esquerda, digite os nomes dos atributos e seus tipos, separados por espaço (' '). Cada atributo e tipo devem estar em sua"
 		+ " própria linha. Assim como o SQL+, o programa não é case-sensitive. No caso de chaves para outras tabelas, use o tipo da chave da"
 		+ " tabela.\n\n"
-		+ "*Por fim, clique em \"Povoar\". O povoamento gerado aparecerá no espaço da direita.",
+		+ "*Por fim, clique em \"Povoar\". O povoamento gerado aparecerá no espaço da direita, automaticamente identado.",
+		"------ POVOAMENTO OBJETO-RELACIONAL ------\n"
+		+ "*Para gerar um povoamento objeto-relacional, basta usar o comando TIPO em alguma parte no espaço da esquerda.\n\n"
+		+ "*A sintaxe é nome_do_tipo TIPO(numero_de parametros)\n\n"
+		+ "Ex. (1 saída):\n"
+		+ "Entrada:\n"
+		+ "tp_teste TIPO(2)\n"
+		+ "	cep CEP\n"
+		+ "	tp_pessoa TIPO(2)\n"
+		+ "		cpf CPF\n"
+		+ "		nome NOME\n\n"
+		+ "Saída:\n"
+		+ "INSERT INTO teste VALUES (\n"
+		+ "	tp_teste(\n"
+		+ "		'67986-971',\n"
+		+ "		tp_pessoa(\n"
+		+ "			'590108591',\n"
+		+ "			'Natália Ana Isgária'\n"
+		+ "		)\n"
+		+ "	)\n"
+		+ ");",
 		"------ TIPOS DE ENTRADA ------\n"
 		+ "\n"
 		+ "*CEP: Gera um CEP no formato 'xxxxx-xxx'\n\n"
@@ -62,7 +80,7 @@ public class Ajuda extends JFrame {
 		+ " dentro, separadas por vírgula.\n\n"
 		+ "Ex. (3 saídas):\n"
 		+ "Entrada:\n"
-		+ "fruta {'Abacaxi', 'Banana', 'Melancia'}\n"
+		+ "fruta {'Abacaxi', 'Banana', 'Melancia'}\n\n"
 		+ "Saída:\n"
 		+ "INSERT INTO teste (fruta) VALUES (\n"
 		+ "	'Melancia'\n"
@@ -93,7 +111,8 @@ public class Ajuda extends JFrame {
 				atualizaTexto();
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sobre", "Como usar", "Tipos de entrada", "Escolhendo suas próprias entradas"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sobre", "Como usar", "Povoamento Objeto-Relacional", "Tipos de entrada",
+				"Escolhendo suas próprias entradas"}));
 		comboBox.setBounds(10, 11, 424, 20);
 		contentPane.add(comboBox);
 		

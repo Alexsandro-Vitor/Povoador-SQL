@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geradores.GeradorPovoamento;
+import geradores.Povoamento;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -64,11 +64,21 @@ public class Main extends JFrame {
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
+		JLabel lblSaidas = new JLabel("Sa\u00EDdas");
+		lblSaidas.setBounds(311, 8, 40, 20);
+		contentPane.add(lblSaidas);
+		
+		txtNumSaidas = new JTextField();
+		txtNumSaidas.setBounds(361, 8, 45, 20);
+		contentPane.add(txtNumSaidas);
+		txtNumSaidas.setColumns(10);
+		
 		JScrollPane spEntrada = new JScrollPane();
 		spEntrada.setBounds(10, 39, 170, 221);
 		contentPane.add(spEntrada);
 		
 		taEntrada = new JTextArea();
+		taEntrada.setTabSize(1);
 		spEntrada.setViewportView(taEntrada);
 		
 		JScrollPane spSaida = new JScrollPane();
@@ -99,21 +109,12 @@ public class Main extends JFrame {
 		});
 		btnAjuda.setBounds(505, 7, 79, 23);
 		contentPane.add(btnAjuda);
-		
-		JLabel lblSaidas = new JLabel("Sa\u00EDdas");
-		lblSaidas.setBounds(311, 8, 40, 20);
-		contentPane.add(lblSaidas);
-		
-		txtNumSaidas = new JTextField();
-		txtNumSaidas.setBounds(361, 8, 45, 20);
-		contentPane.add(txtNumSaidas);
-		txtNumSaidas.setColumns(10);
 	}
 	
 	void povoar() {
 		try {
 			String[] colunas = taEntrada.getText().split("\n");
-			GeradorPovoamento povoador = new GeradorPovoamento(txtNome.getText(), colunas);
+			Povoamento povoador = new Povoamento(txtNome.getText(), colunas);
 			int saidas = Integer.parseInt(txtNumSaidas.getText());
 			taSaida.setText(povoador.povoar(saidas));
 		} catch (NumberFormatException e) {
