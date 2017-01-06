@@ -29,7 +29,7 @@ public class Povoamento {
 			tipos[i] = removerEspacos(param[1]);
 			//Caso especial do comando TIPO
 			if (checarComando(tipos[i], "TIPO")) {
-				tipos[i] = "TIPO(" + param[0].toLowerCase() + "," + tipos[i].substring(5);
+				tipos[i] = "TIPO(" + removerParagrafos(param[0].toLowerCase()) + "," + tipos[i].substring(5);
 				modoOR = true;
 			} else {
 				parametros = parametros + param[0].toLowerCase();
@@ -49,8 +49,12 @@ public class Povoamento {
 		}
 		return saida;
 	}
+	
+	private String removerParagrafos(String entrada) {
+		return entrada.replace("	", "");
+	}
 
-	public String gerarInsercao(String chave) throws Exception {
+	private String gerarInsercao(String chave) throws Exception {
 		String saida = "INSERT INTO " + nomeTabela + " ";
 		saida += modoOR ? ("VALUES (\n") : (parametros + " VALUES (\n") ;
 		PovoamentoVariaveis variaveis = new PovoamentoVariaveis();	//Variaveis para evitar inconsistencias
