@@ -1,7 +1,7 @@
 package exception;
 
 public class ParametroInvalidoException extends Exception {
-	public ParametroInvalidoException(String parametro, String comando, String valorMinimo) {
-		super("O valor do parametro " + parametro + " em " + comando + " deve ser maior que " + valorMinimo);
+	public ParametroInvalidoException(int parametro, String comando, int valorMinimo) {
+		super("O valor em " + parametro + " em " + comando + " deve ser maior que " + valorMinimo);
 	}
 }
