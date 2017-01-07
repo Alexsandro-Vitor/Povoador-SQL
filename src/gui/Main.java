@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import exception.NumeroInvalidoException;
 import geradores.Povoamento;
 
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
+	private JLabel lblSaidas;
 	private JTextField txtNumSaidas;
 	private JTextArea taEntrada;
 	private JTextArea taSaida;
@@ -64,7 +66,7 @@ public class Main extends JFrame {
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
-		JLabel lblSaidas = new JLabel("Sa\u00EDdas");
+		lblSaidas = new JLabel("Sa\u00EDdas");
 		lblSaidas.setBounds(311, 8, 40, 20);
 		contentPane.add(lblSaidas);
 		
@@ -115,13 +117,18 @@ public class Main extends JFrame {
 		try {
 			String[] colunas = taEntrada.getText().split("\n");
 			Povoamento povoador = new Povoamento(txtNome.getText(), colunas);
-			int saidas = Integer.parseInt(txtNumSaidas.getText());
+			int saidas;
+			try {
+				saidas = Integer.parseInt(txtNumSaidas.getText());
+			} catch (NumberFormatException e) {
+				throw new NumeroInvalidoException(txtNumSaidas.getText(), lblSaidas);
+			}
 			taSaida.setText(povoador.povoar(saidas));
-		} catch (NumberFormatException e) {
-			erro("O texto \"" + txtNumSaidas.getText() + "\" deveria ser um número inteiro");
 		} catch (Exception e) {
 			erro(e.getMessage());
+			e.printStackTrace();
 		}
+		
 	}
 	
 	void ajuda() {

@@ -1,6 +1,6 @@
 package console;
 
-import geradores.GeradorPovoamento;
+import geradores.Povoamento;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,9 +38,9 @@ public class Main {
 		for (int i = 0; i < comando.size(); i++) {
 			colunas[i] = comando.get(i);
 		}
-		GeradorPovoamento povoador;
+		Povoamento povoador;
 		try {
-			povoador = new GeradorPovoamento(entrada, colunas);
+			povoador = new Povoamento(entrada, colunas);
 			System.out.println(povoador.povoar(3));
 		} catch (Exception e) {
 			e.printStackTrace();
