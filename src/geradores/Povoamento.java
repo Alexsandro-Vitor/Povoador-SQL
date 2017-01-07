@@ -69,6 +69,7 @@ public class Povoamento {
 			else if (checarComando(tipos[i], "CPF")) saida += gerarVarchar(new GeradorCpf());
 			else if (checarComando(tipos[i], "CPF_FORMATADO")) saida += gerarVarchar(new GeradorCpfFormatado());
 			else if (checarComando(tipos[i], "DATA")) saida += gerar(new GeradorData(tipos[i]));
+			else if (checarComando(tipos[i], "DECIMAL")) saida += gerar(new GeradorDecimal(tipos[i]));
 			else if (checarComando(tipos[i], "EMAIL")) saida += gerarVarchar(new GeradorEmail(variaveis));
 			else if (checarComando(tipos[i], "IDADE_ADOLESCENTE")) saida += gerar(new GeradorIdadeAdolescente());
 			else if (checarComando(tipos[i], "IDADE_ADULTO")) saida += gerar(new GeradorIdadeAdulto());

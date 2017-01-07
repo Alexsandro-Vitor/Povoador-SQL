@@ -1,7 +1,7 @@
 package geradores.numero;
 
 import exception.ChavesDemaisException;
-import exception.TipoInvalidoException;
+import exception.ComandoInvalidoException;
 import geradores.GeradorAbstrato;
 import geradores.PovoamentoVariaveis;
 
@@ -14,7 +14,7 @@ public class GeradorChave extends GeradorAbstrato {
 		this.chave = chave;
 	}
 	
-	public String gerar() throws TipoInvalidoException, ChavesDemaisException {
+	public String gerar() throws ComandoInvalidoException, ChavesDemaisException {
 		if (variaveis.existeChave) throw new ChavesDemaisException();
 		else variaveis.existeChave = true;
 		return chave;
