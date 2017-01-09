@@ -1,6 +1,7 @@
 package geradores.varchar;
 
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 import geradores.PovoamentoVariaveis;
 
 public class GeradorNome extends GeradorAbstrato {
@@ -94,15 +95,21 @@ public class GeradorNome extends GeradorAbstrato {
 
 	private static PovoamentoVariaveis variaveis;
 
+	public static final String nomeComando = "NOME";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
+	
 	public GeradorNome(PovoamentoVariaveis variaveis) {
 		GeradorNome.variaveis = variaveis;
 	}
 
 	public String gerar() {
-		if (variaveis.sexo == 0) variaveis.sexo = intAleatorio(1, 3);
+		if (variaveis.sexo == 0) variaveis.sexo = MetodosGerador.intAleatorio(1, 3);
 		variaveis.nome = (variaveis.email == null) ? gerar(variaveis.sexo == 1) : gerarIniciais(variaveis.sexo == 1);
 		if (variaveis.email == null) variaveis.email = gerarEmail(variaveis.nome);
-		return variaveis.nome;
+		return MetodosGerador.varchar(variaveis.nome);
 	}
 
 	//Gera um nome com o numero de nomes e sobrenomes dado e masculino se for true ou feminino, se for false
@@ -123,7 +130,7 @@ public class GeradorNome extends GeradorAbstrato {
 	}
 
 	public static String gerar(boolean masculino) {
-		return gerar(intAleatorio(1, 3), intAleatorio(1, 3), masculino);
+		return gerar(MetodosGerador.intAleatorio(1, 3), MetodosGerador.intAleatorio(1, 3), masculino);
 	}
 	
 	//Gera uma sequencia de numeros distintos
@@ -131,7 +138,7 @@ public class GeradorNome extends GeradorAbstrato {
 		int[] numeros = new int[valores];
 		boolean[] valorEscolhido = new boolean[valorMaximo];
 		for (int i = 0; i < numeros.length; i++) {
-			int proxNumero = intAleatorio(0, valorMaximo - i);
+			int proxNumero = MetodosGerador.intAleatorio(0, valorMaximo - i);
 			for (int j = 0; j <= proxNumero && j < valorMaximo; j++) {
 				if (valorEscolhido[j]) proxNumero++;
 			}
@@ -193,7 +200,7 @@ public class GeradorNome extends GeradorAbstrato {
 		for (int i = 0; i < valores; i++) {
 			int min = acharPrimeiroNome(array, variaveis.email.charAt(i + desvio));
 			int max = acharUltimoNome(min, array, variaveis.email.charAt(i + desvio));
-			int proxNumero = intAleatorio(min, max);
+			int proxNumero = MetodosGerador.intAleatorio(min, max);
 			for (int j = min; j <= proxNumero && j < max; j++) {
 				if (valorEscolhido[j]) proxNumero++;
 			}

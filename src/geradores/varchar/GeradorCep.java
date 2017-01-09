@@ -1,11 +1,16 @@
 package geradores.varchar;
 
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 
 public class GeradorCep extends GeradorAbstrato {
-	public GeradorCep() {}
+	public static final String nomeComando = "CEP";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
 	
 	public String gerar() {
-		return gerarSequenciaDigitos(5)+"-"+gerarSequenciaDigitos(3);
+		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(5)+"-"+MetodosGerador.gerarSequenciaDigitos(3));
 	}
 }

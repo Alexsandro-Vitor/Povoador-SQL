@@ -3,10 +3,17 @@ package geradores.data;
 import exception.DataInvalidaException;
 import exception.ComandoInvalidoException;
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 import geradores.Povoamento;
 
 public class GeradorData extends GeradorAbstrato {
 	private String comando;
+	
+	public static final String nomeComando = "DATA";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
 	
 	public GeradorData(String comando) {
 		this.comando = comando;

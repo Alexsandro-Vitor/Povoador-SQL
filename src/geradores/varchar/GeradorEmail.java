@@ -1,6 +1,7 @@
 package geradores.varchar;
 
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 import geradores.Povoamento;
 import geradores.PovoamentoVariaveis;
 
@@ -11,13 +12,19 @@ public class GeradorEmail extends GeradorAbstrato {
 		"@cin.ufpe.br", "@gmail.com", "@hotmail.com"
 	};
 	
+	public static final String nomeComando = "EMAIL";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
+	
 	public GeradorEmail(PovoamentoVariaveis variaveis) {
 		this.variaveis = variaveis;
 	}
 	
 	public String gerar() {
 		if (variaveis.email == null) variaveis.email = siglaAleatoria();
-		return variaveis.email + terminacaoAleatoria();
+		return MetodosGerador.varchar(variaveis.email + terminacaoAleatoria());
 	}
 	
 	private String siglaAleatoria() {
@@ -48,7 +55,7 @@ public class GeradorEmail extends GeradorAbstrato {
 	}
 	
 	private String terminacaoAleatoria() {
-		return escolhaAleatoria(emails);
+		return MetodosGerador.escolhaAleatoria(emails);
 	}
 }
 

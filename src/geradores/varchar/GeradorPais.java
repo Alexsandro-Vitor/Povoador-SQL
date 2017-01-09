@@ -1,6 +1,7 @@
 package geradores.varchar;
 
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 
 public class GeradorPais extends GeradorAbstrato {
 	private static String[] paises = {
@@ -20,8 +21,14 @@ public class GeradorPais extends GeradorAbstrato {
 		"Zimbabué"
 	}; 
 	
+	public static final String nomeComando = "PAIS";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
+	
 	public String gerar() {
-		return escolhaAleatoria(paises);
+		return MetodosGerador.varchar(MetodosGerador.escolhaAleatoria(paises));
 	}
 }
 

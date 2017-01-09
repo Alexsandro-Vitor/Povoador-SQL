@@ -5,10 +5,16 @@ import exception.NumeroInvalidoException;
 import exception.ParametroInvalidoException;
 import exception.QtdParametrosInvalidaException;
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 
 public class GeradorDecimal extends GeradorAbstrato {
 	private String comando;
-	private static final int tamTipo = 7;
+
+	public static final String nomeComando = "DECIMAL";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
 	
 	public GeradorDecimal(String comando) {
 		this.comando = comando;
@@ -16,11 +22,11 @@ public class GeradorDecimal extends GeradorAbstrato {
 	
 	public String gerar() throws ComandoInvalidoException, NumeroInvalidoException, ParametroInvalidoException, QtdParametrosInvalidaException {
 		int[] valores = validar();
-		return intAleatorio(0, (int)Math.pow(10, valores[0])) + "." + gerarSequenciaDigitos(valores[1]);
+		return MetodosGerador.intAleatorio(0, (int)Math.pow(10, valores[0])) + "." + MetodosGerador.gerarSequenciaDigitos(valores[1]);
 	}
 	
 	private int[] validar() throws ComandoInvalidoException, NumeroInvalidoException, ParametroInvalidoException, QtdParametrosInvalidaException {
-		return validarValores(validarSintaxe(comando, tamTipo, 2));
+		return validarValores(MetodosGerador.validarSintaxe(comando, nomeComando.length(), 2));
 	}
 	
 	private int[] validarValores(String[] valores) throws ParametroInvalidoException, NumeroInvalidoException {

@@ -1,11 +1,17 @@
 package geradores.varchar;
 
 import geradores.GeradorAbstrato;
+import geradores.MetodosGerador;
 
 public class GeradorCpfFormatado extends GeradorAbstrato {
-	public GeradorCpfFormatado() {}
+	public static final String nomeComando = "CPF_FORMATADO";
+	
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, nomeComando);
+	}
 	
 	public String gerar() {
-		return gerarSequenciaDigitos(3) + "." + gerarSequenciaDigitos(3) + "." + gerarSequenciaDigitos(3) + "-" + gerarSequenciaDigitos(2);
+		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(3) + "." + MetodosGerador.gerarSequenciaDigitos(3) + "." + MetodosGerador.gerarSequenciaDigitos(3) + "-"
+				+ MetodosGerador.gerarSequenciaDigitos(2));
 	}
 }
