@@ -27,14 +27,14 @@ public class Povoamento {
 			tipos[i] = removerEspacos(param[1]);
 			//Caso especial do comando TIPO
 			if (MetodosGerador.checarComando(tipos[i], "TIPO")) {
-				tipos[i] = "TIPO(" + removerParagrafos(param[0].toLowerCase()) + "," + tipos[i].substring(5);
+				tipos[i] = "TIPO(" + removerParagrafos(param[0]) + "," + tipos[i].substring(5);
 				modoOR = true;
 			} else {
-				parametros = parametros + param[0].toLowerCase();
+				parametros += removerParagrafos(param[0]);
 				if (i < entrada.length-1) parametros = parametros + ", ";
 			}
 		}
-		parametros = parametros + ")";
+		parametros += ")";
 		elementos = new ArrayList<Integer>();
 	}
 
@@ -49,54 +49,69 @@ public class Povoamento {
 	}
 	
 	private String removerParagrafos(String entrada) {
-		return entrada.replace("	", "");
+		return entrada.toLowerCase().replace("	", "");
 	}
 
 	private String gerarInsercao(String chave) throws Exception {
 		String saida = "INSERT INTO " + nomeTabela + " ";
 		saida += modoOR ? ("VALUES (\n") : (parametros + " VALUES (\n") ;
-		PovoamentoVariaveis variaveis = new PovoamentoVariaveis();	//Variaveis para evitar inconsistencias
+		PovoamentoVariaveis variaveis = new PovoamentoVariaveis(chave);	//Variaveis para evitar inconsistencias
 		for (int i = 0; i < tipos.length; i++) {
-			if (GeradorCelular.checarComando(tipos[i])) saida += gerar(new GeradorCelular());
-			else if (GeradorCelularDdd.checarComando(tipos[i])) saida += gerar(new GeradorCelularDdd());
-			else if (GeradorCelularDddFormatado.checarComando(tipos[i])) saida += gerar(new GeradorCelularDddFormatado());
-			else if (GeradorCelularFormatado.checarComando(tipos[i])) saida += gerar(new GeradorCelularFormatado());
-			else if (GeradorCep.checarComando(tipos[i])) saida += gerar(new GeradorCep());
-			else if (GeradorChave.checarComando(tipos[i])) saida += gerar(new GeradorChave(tipos[i], variaveis, chave));
-			else if (GeradorCpf.checarComando(tipos[i])) saida += gerar(new GeradorCpf());
-			else if (GeradorCpfFormatado.checarComando(tipos[i])) saida += gerar(new GeradorCpfFormatado());
-			else if (GeradorData.checarComando(tipos[i])) saida += gerar(new GeradorData(tipos[i]));
-			else if (GeradorDecimal.checarComando(tipos[i])) saida += gerar(new GeradorDecimal(tipos[i]));
-			else if (GeradorEmail.checarComando(tipos[i])) saida += gerar(new GeradorEmail(variaveis));
-			else if (GeradorIdadeAdolescente.checarComando(tipos[i])) saida += gerar(new GeradorIdadeAdolescente());
-			else if (GeradorIdadeAdulto.checarComando(tipos[i])) saida += gerar(new GeradorIdadeAdulto());
-			else if (GeradorIdadeCrianca.checarComando(tipos[i])) saida += gerar(new GeradorIdadeCrianca());
-			else if (GeradorIdadeMenor.checarComando(tipos[i])) saida += gerar(new GeradorIdadeMenor());
-			else if (GeradorInt.checarComando(tipos[i])) saida += gerar(new GeradorInt(tipos[i]));
-			else if (GeradorNome.checarComando(tipos[i])) saida += gerar(new GeradorNome(variaveis));
-			else if (GeradorPais.checarComando(tipos[i])) saida += gerar(new GeradorPais());
-			else if (GeradorProfissao.checarComando(tipos[i])) saida += gerar(new GeradorProfissao());
-			else if (GeradorReferencia.checarComando(tipos[i])) saida += gerar(new GeradorReferencia(tipos[i]));
-			else if (GeradorSexo.checarComando(tipos[i])) saida += gerar(new GeradorSexo(variaveis));
-			else if (GeradorEspecial.checarComando(tipos[i])) saida += gerar(new GeradorEspecial(tipos[i]));
-			else if (MetodosGerador.checarComando(tipos[i], "TIPO")) saida += gerarTipo(tipos[i]);
-			else throw new ComandoInvalidoException(tipos[i]);
-
-			//Conta os elementos do tipo para saber se todos já foram gerados
-			while (elementos.size() > 0 && !MetodosGerador.checarComando(tipos[i], "TIPO")) {
-				elementos.set(elementos.size()-1, elementos.get(elementos.size()-1) - 1);
-				if (elementos.get(elementos.size()-1) <= 0) {
-					elementos.remove(elementos.size()-1);
-					saida += "\n" + "	" + identar(--identacoes) + ")";
-				} else break;
-			}
-
-			//Adiciona a virgula e a quebra de linha (p/ identação) ou fecha o INSERT INTO se for o último valor gerado
-			if (MetodosGerador.checarComando(tipos[i], "TIPO")) saida += "\n";
-			else if (i < tipos.length - 1) saida += ",\n";
-			else saida += "\n);";
+			saida += executarComando(tipos[i], variaveis);
+			if (!MetodosGerador.checarComando(tipos[i], "TIPO")) saida += contarElementosTipo();
+			saida += quebraLinhaInsercao(i);
 		}
 		return saida;
+	}
+	
+	//Checa o comando e o executa se ele for reconhecido ou lança exceções se houver algum erro
+	private String executarComando(String comando, PovoamentoVariaveis variaveis) throws Exception {
+		if (GeradorCelular.checarComando(comando)) return gerar(new GeradorCelular());
+		else if (GeradorCelularDdd.checarComando(comando)) return gerar(new GeradorCelularDdd());
+		else if (GeradorCelularDddFormatado.checarComando(comando)) return gerar(new GeradorCelularDddFormatado());
+		else if (GeradorCelularFormatado.checarComando(comando)) return gerar(new GeradorCelularFormatado());
+		else if (GeradorCep.checarComando(comando)) return gerar(new GeradorCep());
+		else if (GeradorChave.checarComando(comando)) return gerar(new GeradorChave(comando, variaveis));
+		else if (GeradorCpf.checarComando(comando)) return gerar(new GeradorCpf());
+		else if (GeradorCpfFormatado.checarComando(comando)) return gerar(new GeradorCpfFormatado());
+		else if (GeradorData.checarComando(comando)) return gerar(new GeradorData(comando));
+		else if (GeradorDecimal.checarComando(comando)) return gerar(new GeradorDecimal(comando));
+		else if (GeradorEmail.checarComando(comando)) return gerar(new GeradorEmail(variaveis));
+		else if (GeradorIdadeAdolescente.checarComando(comando)) return gerar(new GeradorIdadeAdolescente());
+		else if (GeradorIdadeAdulto.checarComando(comando)) return gerar(new GeradorIdadeAdulto());
+		else if (GeradorIdadeCrianca.checarComando(comando)) return gerar(new GeradorIdadeCrianca());
+		else if (GeradorIdadeMenor.checarComando(comando)) return gerar(new GeradorIdadeMenor());
+		else if (GeradorInt.checarComando(comando)) return gerar(new GeradorInt(comando));
+		else if (GeradorNome.checarComando(comando)) return gerar(new GeradorNome(variaveis));
+		else if (GeradorPais.checarComando(comando)) return gerar(new GeradorPais());
+		else if (GeradorProfissao.checarComando(comando)) return gerar(new GeradorProfissao());
+		else if (GeradorReferencia.checarComando(comando)) return gerar(new GeradorReferencia(comando));
+		else if (GeradorSexo.checarComando(comando)) return gerar(new GeradorSexo(variaveis));
+		else if (GeradorEspecial.checarComando(comando)) return gerar(new GeradorEspecial(comando));
+		else if (MetodosGerador.checarComando(comando, "TIPO")) return gerarTipo(comando);
+		else throw new ComandoInvalidoException(comando);
+	}
+	
+	/*Caso o povoamento esteja preenchendo um tipo OR, conta os elementos do tipo que
+	 * ainda precisam ser gerados e os fecha se já tiver terminado de preenchê-los
+	 */
+	private String contarElementosTipo() {
+		String saida = "";
+		while (elementos.size() > 0) {
+			elementos.set(elementos.size() - 1, elementos.get(elementos.size() - 1) - 1);
+			if (elementos.get(elementos.size() - 1) <= 0) {
+				elementos.remove(elementos.size() - 1);
+				saida += "\n" + "	" + identar(--identacoes) + ")";
+			} else break;
+		}
+		return saida;
+	}
+	
+	//Adiciona a virgula e a quebra de linha (p/ identação) ou fecha o INSERT INTO se for o último valor gerado
+	private String quebraLinhaInsercao(int comando) {
+		if (MetodosGerador.checarComando(tipos[comando], "TIPO")) return "\n";
+		else if (comando < tipos.length - 1) return ",\n";
+		return "\n);";
 	}
 
 	private String removerEspacos(String entrada) {
@@ -116,7 +131,7 @@ public class Povoamento {
 		return entrada;
 	}
 
-	//Metodo para gerar entradas que nao sejam varchars
+	//Metodo para gerar entradas identadas
 	private String gerar(GeradorAbstrato gerador) throws Exception {
 		return identar(identacoes) + "	" + gerador.gerar();
 	}

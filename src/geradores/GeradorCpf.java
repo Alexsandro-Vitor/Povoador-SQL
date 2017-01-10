@@ -8,6 +8,6 @@ public class GeradorCpf extends GeradorAbstrato {
 	}
 	
 	public String gerar() {
-		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(9));
+		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(11));
 	}
 }

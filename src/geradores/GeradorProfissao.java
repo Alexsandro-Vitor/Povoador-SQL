@@ -2,7 +2,8 @@ package geradores;
 
 public class GeradorProfissao extends GeradorAbstrato {
 	private static String[] profissoes = {
-		"Bombeiro", "Cientista", "Empresário", "Enfermeiro", "Engenheiro", "Estudante", "Médico", "Professor", "Programador"
+		"Atleta", "Bombeiro", "Cientista", "Empresário", "Enfermeiro", "Engenheiro", "Estudante", "Mecânico", "Médico", "Motorista", "Professor",
+		"Programador"
 	};
 	
 	public static final String nomeComando = "PROFISSAO";
