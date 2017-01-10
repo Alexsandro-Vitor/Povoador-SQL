@@ -5,9 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import geradores.*;
-import geradores.data.*;
-import geradores.numero.*;
-import geradores.varchar.*;
 
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;

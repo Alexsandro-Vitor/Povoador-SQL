@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import exception.NumeroInvalidoException;
-import geradores.Povoamento;
+import povoamento.Povoamento;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
