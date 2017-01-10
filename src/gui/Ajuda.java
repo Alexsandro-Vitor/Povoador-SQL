@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import geradores.*;
+import geradores.data.*;
+import geradores.numero.*;
+import geradores.varchar.*;
+
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
@@ -34,10 +39,10 @@ public class Ajuda extends JFrame {
 		+ "Ex. (1 saída):\n"
 		+ "Entrada:\n"
 		+ "tp_teste TIPO(2)\n"
-		+ "	cep CEP\n"
+		+ "	cep " + GeradorCep.nomeComando + "\n"
 		+ "	tp_pessoa TIPO(2)\n"
-		+ "		cpf CPF\n"
-		+ "		nome NOME\n\n"
+		+ "		cpf " + GeradorCpf.nomeComando + "\n"
+		+ "		nome " + GeradorNome.nomeComando + "\n\n"
 		+ "Saída:\n"
 		+ "INSERT INTO teste VALUES (\n"
 		+ "	tp_teste(\n"
@@ -48,35 +53,37 @@ public class Ajuda extends JFrame {
 		+ "		)\n"
 		+ "	)\n"
 		+ ");\n\n"
-		+ "Obs.: A identação é sempre opcional.",
+		+ "Obs.: A identação é opcional.",
 		"------ TIPOS DE ENTRADA ------\n"
 		+ "\n"
-		+ "*CEP: Gera um CEP no formato 'xxxxx-xxx'.\n\n"
-		+ "*CELULAR: Gera um número de celular no formato '9xxxxxxxx'.\n\n"
-		+ "*CELULAR_DDD: Gera um número de celular no formato 'xx9xxxxxxxx'.\n\n"
-		+ "*CELULAR_FORMATADO: Gera um número de celular no formato '9xxxx-xxxx'.\n\n"
-		+ "*CELULAR_FORMATADO_DDD: Gera um número de celular no formato '(xx)9xxxx-xxxx'.\n\n"
-		+ "*CHAVE_INT: Gera um valor que começa em 0 e é incrementado em cada inserção gerada. Deve ser usado para gerar as chaves caso a tabela"
-		+ " use uma chave inteira.\n\n"
-		+ "*CHAVE_STRING: Gera um valor que começa em '0' e é incrementado em cada inserção gerada. Deve ser usado para gerar as chaves caso a"
-		+ " tabela use uma chave texto.\n\n"
-		+ "*CPF: Gera um CPF no formato 'xxxxxxxxxxx'.\n\n"
-		+ "*CPF_FORMATADO: Gera um CPF no formato 'xxx.xxx.xxx-xx'.\n\n"
-		+ "*DATA(min, max): Gera uma data entre a data em min e a data em max. Ambos min e max devem ser inseridos na forma DD/MM/AAAA.\n\n"
-		+ "*DECIMAL(antesPonto, depoisPonto): Gera um número decimal com um número de algarismos a esquerda menor ou igual a antesPonto e um número"
-		+ " de algarismos a direita igual ao valor em depoisPonto.\n\n"
-		+ "*EMAIL: Retorna um email com uma sequencia de letras e uma terminação aleatórias. Se for usado após NOME, usará as iniciais do nome"
-		+ " gerado anteriormente.\n\n"
-		+ "*IDADE_ADOLESCENTE: Gera uma idade inteira de 13 a 17.\n\n"
-		+ "*IDADE_ADULTO: Gera uma idade de 18 a 64.\n\n"
-		+ "*IDADE_CRIANCA: Gera uma idade de 0 a 12.\n\n"
-		+ "*IDADE_MENOR: Gera uma idade de 0 a 17.\n\n"
-		+ "*INT(min, max): Gera um valor inteiro de min a max.\n\n"
-		+ "*NOME: Gera um nome com 1 ou 2 nomes e 1 ou 2 sobrenomes sorteados aleatoriamente. Se for usado após EMAIL, retornará um nome cujas"
-		+ " iniciais serão iguais ao email gerado anteriormente.\n\n"
-		+ "*PAIS: Retorna um país sorteado aleatoriamente.\n\n"
-		+ "*PROFISSAO: Retorna uma profissão sorteada aleatoriamente.\n\n"
-		+ "*SEXO: Retorna 'M' (masculino) ou 'F' (feminino). Caso NOME e SEXO sejam ambos usados, o programa gera nomes e sexos compatíveis.",
+		+ "*" + GeradorCep.nomeComando + ": Gera um CEP no formato 'xxxxx-xxx'.\n\n"
+		+ "*" + GeradorCelular.nomeComando + ": Gera um número de celular no formato '9xxxxxxxx'.\n\n"
+		+ "*" + GeradorCelularDdd.nomeComando + ": Gera um número de celular no formato 'xx9xxxxxxxx'.\n\n"
+		+ "*" + GeradorCelularFormatado.nomeComando + ": Gera um número de celular no formato '9xxxx-xxxx'.\n\n"
+		+ "*" + GeradorCelularDddFormatado.nomeComando + ": Gera um número de celular no formato '(xx)9xxxx-xxxx'.\n\n"
+		+ "*" + GeradorChave.nomeComando + GeradorChave.inteiro + ": Gera um valor que começa em 0 e é incrementado em cada inserção gerada. Deve"
+		+ " ser usado para gerar as chaves caso a tabela use uma chave inteira.\n\n"
+		+ "*" + GeradorChave.nomeComando + GeradorChave.varchar + ": Igual ao " + GeradorChave.nomeComando + GeradorChave.inteiro + ". Deve ser"
+		+ " usado para gerar as chaves caso a tabela use uma chave VARCHAR.\n\n"
+		+ "*" + GeradorCpf.nomeComando + ": Gera um CPF no formato 'xxxxxxxxxxx' (VARCHAR de 11 dígitos).\n\n"
+		+ "*" + GeradorCpfFormatado.nomeComando + ": Gera um CPF no formato 'xxx.xxx.xxx-xx'.\n\n"
+		+ "*" + GeradorData.nomeComando + "(min, max): Gera uma data entre a data em min e a data em max. Ambos min e max devem ser inseridos na"
+		+ " forma DD/MM/AAAA.\n\n"
+		+ "*" + GeradorDecimal.nomeComando + "(antesPonto, depoisPonto): Gera um número decimal com um número de algarismos a esquerda menor ou"
+		+ " igual a antesPonto e um número de algarismos a direita igual ao valor em depoisPonto.\n\n"
+		+ "*" + GeradorEmail.nomeComando + ": Retorna um email com uma sequencia de letras e uma terminação aleatórias. Se for usado junto com "
+		+ GeradorNome.nomeComando + ", usará as iniciais do nome gerado anteriormente.\n\n"
+		+ "*" + GeradorIdadeAdolescente.nomeComando + ": Gera uma idade inteira de 13 a 17 anos.\n\n"
+		+ "*" + GeradorIdadeAdulto.nomeComando + ": Gera uma idade de 18 a 64 anos.\n\n"
+		+ "*" + GeradorIdadeCrianca.nomeComando + ": Gera uma idade de 0 a 12 anos.\n\n"
+		+ "*" + GeradorIdadeMenor.nomeComando + ": Gera uma idade de 0 a 17 anos.\n\n"
+		+ "*" + GeradorInt.nomeComando + "(min, max): Gera um valor inteiro no intervalo [min, max].\n\n"
+		+ "*" + GeradorNome.nomeComando + ": Gera um nome com 1 ou 2 nomes e 1 ou 2 sobrenomes sorteados aleatoriamente. Se for usado junto com "
+		+ GeradorEmail.nomeComando + ", retornará um nome cujas iniciais serão iguais ao email gerado anteriormente.\n\n"
+		+ "*" + GeradorPais.nomeComando + ": Retorna um país sorteado aleatoriamente.\n\n"
+		+ "*" + GeradorProfissao.nomeComando + ": Retorna uma profissão sorteada aleatoriamente.\n\n"
+		+ "*" + GeradorSexo.nomeComando + ": Retorna 'M' (masculino) ou 'F' (feminino). Caso " + GeradorNome.nomeComando + " e "
+		+ GeradorSexo.nomeComando + " sejam ambos usados, o programa gera nomes e sexos consistentes.",
 		"------ ESCOLHENDO SUAS PRÓPRIAS ENTRADAS ------\n"
 		+ "\n"
 		+ "É possível usar seu próprio conjunto de entradas no povoador. Para isso, no lugar do tipo, use chaves ({, }), e coloque as entradas"

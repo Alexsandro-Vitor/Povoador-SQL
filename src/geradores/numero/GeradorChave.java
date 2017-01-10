@@ -12,7 +12,7 @@ public class GeradorChave extends GeradorAbstrato {
 	
 	public static final String nomeComando = "CHAVE";
 	public static final String inteiro = "_INT";
-	public static final String varchar = "_STRING";
+	public static final String varchar = "_VARCHAR";
 	
 	public static boolean checarComando(String entrada) {
 		return entrada.toUpperCase().startsWith(nomeComando);
