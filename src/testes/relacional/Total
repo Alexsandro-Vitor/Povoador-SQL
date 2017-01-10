@@ -1,0 +1,21 @@
+cel CELULAR
+cel_ddd CELULAR_DDD
+cel_ddd_form CELULAR_DDD_FORMATADO
+cel_form CELULAR_FORMATADO
+cep CEP
+chave CHAVE_INT
+cpf CPF
+cpf_form CPF_FORMATADO
+data DATA(01/01/2001, 10/01/2017)
+decimal DECIMAL(3, 2)
+email EMAIL
+fruta {'Cacau', 'Laranja', 'Uva'}
+idade_adolescente IDADE_ADOLESCENTE
+idade_adulto IDADE_ADULTO
+idade_crianca IDADE_CRIANCA
+idade_menor IDADE_MENOR
+int INT(0, 10)
+nome NOME
+pais PAIS
+profissao PROFISSAO
+sexo SEXO
