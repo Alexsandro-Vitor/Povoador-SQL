@@ -4,6 +4,7 @@ cel_ddd_form CELULAR_DDD_FORMATADO
 cel_form CELULAR_FORMATADO
 cep CEP
 chave CHAVE_INT
+cnpj CNPJ
 cpf CPF
 cpf_form CPF_FORMATADO
 data DATA(01/01/2001, 10/01/2017)

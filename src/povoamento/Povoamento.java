@@ -72,6 +72,7 @@ public class Povoamento {
 		else if (GeradorCelularFormatado.checarComando(comando)) return gerar(new GeradorCelularFormatado());
 		else if (GeradorCep.checarComando(comando)) return gerar(new GeradorCep());
 		else if (GeradorChave.checarComando(comando)) return gerar(new GeradorChave(comando, variaveis));
+		else if (GeradorCnpj.checarComando(comando)) return gerar(new GeradorCnpj());
 		else if (GeradorCpf.checarComando(comando)) return gerar(new GeradorCpf());
 		else if (GeradorCpfFormatado.checarComando(comando)) return gerar(new GeradorCpfFormatado());
 		else if (GeradorData.checarComando(comando)) return gerar(new GeradorData(comando));

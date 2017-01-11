@@ -8,7 +8,7 @@ public class GeradorCpfFormatado extends GeradorAbstrato {
 	}
 	
 	public String gerar() {
-		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(3) + "." + MetodosGerador.gerarSequenciaDigitos(3) + "." + MetodosGerador.gerarSequenciaDigitos(3) + "-"
-				+ MetodosGerador.gerarSequenciaDigitos(2));
+		return MetodosGerador.varchar(MetodosGerador.gerarSequenciaDigitos(3) + "." + MetodosGerador.gerarSequenciaDigitos(3) + "."
+				+ MetodosGerador.gerarSequenciaDigitos(3) + "-" + MetodosGerador.gerarSequenciaDigitos(2));
 	}
 }

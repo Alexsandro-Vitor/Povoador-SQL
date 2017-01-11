@@ -62,6 +62,7 @@ public class Ajuda extends JFrame {
 		+ " ser usado para gerar as chaves caso a tabela use uma chave inteira.\n\n"
 		+ "*" + GeradorChave.nomeComando + GeradorChave.varchar + ": Igual ao " + GeradorChave.nomeComando + GeradorChave.inteiro + ". Deve ser"
 		+ " usado para gerar as chaves caso a tabela use uma chave VARCHAR.\n\n"
+		+ "*" + GeradorCnpj.nomeComando + ": Gera um CNPJ no formato 'xx.xxx.xxx/xxxx-xx'.\n\n"
 		+ "*" + GeradorCpf.nomeComando + ": Gera um CPF no formato 'xxxxxxxxxxx' (VARCHAR de 11 dígitos).\n\n"
 		+ "*" + GeradorCpfFormatado.nomeComando + ": Gera um CPF no formato 'xxx.xxx.xxx-xx'.\n\n"
 		+ "*" + GeradorData.nomeComando + "(min, max): Gera uma data entre a data em min e a data em max. Ambos min e max devem ser inseridos na"
