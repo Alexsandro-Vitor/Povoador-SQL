@@ -16,6 +16,7 @@ public class Povoamento {
 	private boolean modoOR;	//modoOR {true: Gera um povoamento OR; false: Gera um povoamento relacional}
 	private int identacoes;
 	private ArrayList<Integer> elementos;
+	public PovoamentoVariaveis variaveis;
 
 	public Povoamento(String nome, String[] entrada) throws SemNomeException {
 		if (nome.equals("")) throw new SemNomeException();
@@ -55,7 +56,7 @@ public class Povoamento {
 	private String gerarInsercao(String chave) throws Exception {
 		String saida = "INSERT INTO " + nomeTabela + " ";
 		saida += modoOR ? ("VALUES (\n") : (parametros + " VALUES (\n") ;
-		PovoamentoVariaveis variaveis = new PovoamentoVariaveis(chave);	//Variaveis para evitar inconsistencias
+		variaveis = new PovoamentoVariaveis(chave);	//Variaveis para evitar inconsistencias
 		for (int i = 0; i < tipos.length; i++) {
 			saida += executarComando(tipos[i], variaveis);
 			if (!MetodosGerador.checarComando(tipos[i], "TIPO")) saida += contarElementosTipo();
@@ -65,7 +66,7 @@ public class Povoamento {
 	}
 	
 	//Checa o comando e o executa se ele for reconhecido ou lança exceções se houver algum erro
-	private String executarComando(String comando, PovoamentoVariaveis variaveis) throws Exception {
+	public String executarComando(String comando, PovoamentoVariaveis variaveis) throws Exception {
 		if (GeradorCelular.checarComando(comando)) return gerar(new GeradorCelular());
 		else if (GeradorCelularDdd.checarComando(comando)) return gerar(new GeradorCelularDdd());
 		else if (GeradorCelularDddFormatado.checarComando(comando)) return gerar(new GeradorCelularDddFormatado());
@@ -89,6 +90,7 @@ public class Povoamento {
 		else if (GeradorReferencia.checarComando(comando)) return gerar(new GeradorReferencia(comando));
 		else if (GeradorSexo.checarComando(comando)) return gerar(new GeradorSexo(variaveis));
 		else if (GeradorEspecial.checarComando(comando)) return gerar(new GeradorEspecial(comando));
+		else if (GeradorLinguagemRegular.checarComando(comando)) return gerar(new GeradorLinguagemRegular(comando));
 		else if (MetodosGerador.checarComando(comando, "TIPO")) return gerarTipo(comando);
 		else throw new ComandoInvalidoException(comando);
 	}

@@ -98,7 +98,16 @@ public class Ajuda extends JFrame {
 		+ ");\n"
 		+ "INSERT INTO teste (fruta) VALUES (\n"
 		+ "	'Banana'\n"
-		+ ");"
+		+ ");",
+		"------ LINGUAGENS REGULARES ------\n"
+		+ "\n"
+		+ "É possível usar uma linguagem regular para gerar entradas. Para isso, deve-se inserir a linguagem regular dentro de parênteses (\"\").\n"
+		+ "Caracteres Especiais:\n"
+		+ "@	Gera uma letra minúscula aleatória.\n"
+		+ "#	Gera um algarismo aleatório.\n"
+		+ "\\	Use antes de um caractere especial para que ele apareça na saída.\n"
+		+ "+	Use após um caractere qualquer para que ele possa aparecer ou não. Repetindo esse caractere N vezes fará com que os N caracteres"
+		+ " antes dele possam aparecer ou não."
 		};
 
 	/**
@@ -120,7 +129,7 @@ public class Ajuda extends JFrame {
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Sobre", "Como usar", "Povoamento Objeto-Relacional", "Tipos de entrada",
-				"Escolhendo suas próprias entradas"}));
+				"Escolhendo suas próprias entradas", "Linguagens Regulares"}));
 		comboBox.setBounds(10, 11, 424, 20);
 		contentPane.add(comboBox);
 		
