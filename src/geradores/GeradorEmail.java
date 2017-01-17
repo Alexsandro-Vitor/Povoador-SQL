@@ -21,11 +21,11 @@ public class GeradorEmail extends GeradorAbstrato {
 	}
 	
 	public String gerar() {
-		if (variaveis.email == null) variaveis.email = siglaAleatoria();
+		if (variaveis.email == null) variaveis.email = siglaLetrasDistintas();
 		return MetodosGerador.varchar(variaveis.email + terminacaoAleatoria());
 	}
 	
-	private String siglaAleatoria() {
+	private String siglaLetrasDistintas() {
 		int tamanho = 3 + Povoamento.random.nextInt(2);
 		String saida = "";
 		int[] letrasAleatorias = gerarNumerosDistintos(tamanho, 26);
