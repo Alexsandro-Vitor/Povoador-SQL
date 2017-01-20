@@ -79,6 +79,7 @@ public class Ajuda extends JFrame {
 		+ "*" + GeradorNome.nomeComando + ": Gera um nome com 1 ou 2 nomes e 1 ou 2 sobrenomes sorteados aleatoriamente. Se for usado junto com "
 		+ GeradorEmail.nomeComando + ", retornará um nome cujas iniciais serão iguais ao email gerado anteriormente.\n\n"
 		+ "*" + GeradorPais.nomeComando + ": Retorna um país sorteado aleatoriamente.\n\n"
+		+ "*" + GeradorPlaca.nomeComando + ": Retorna uma placa no formato '@@@-####', onde @ é uma letra maiúscula e # é um algarismo.\n\n"
 		+ "*" + GeradorProfissao.nomeComando + ": Retorna uma profissão sorteada aleatoriamente.\n\n"
 		+ "*" + GeradorSexo.nomeComando + ": Retorna 'M' (masculino) ou 'F' (feminino). Caso " + GeradorNome.nomeComando + " e "
 		+ GeradorSexo.nomeComando + " sejam ambos usados, o programa gera nomes e sexos consistentes.",
