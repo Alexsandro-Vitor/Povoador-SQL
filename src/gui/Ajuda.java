@@ -71,6 +71,8 @@ public class Ajuda extends JFrame {
 		+ " igual a antesPonto e um número de algarismos a direita igual ao valor em depoisPonto.\n\n"
 		+ "*" + GeradorEmail.nomeComando + ": Retorna um email com uma sequencia de letras e uma terminação aleatórias. Se for usado junto com "
 		+ GeradorNome.nomeComando + ", usará as iniciais do nome gerado anteriormente.\n\n"
+		+ "*" + GeradorEstado.nomeComando + ": Retorna o nome de um estado brasileiro.\n\n"
+		+ "*" + GeradorEstadoSigla.nomeComando + ": Retorna a sigla de um estado brasileiro.\n\n"
 		+ "*" + GeradorIdadeAdolescente.nomeComando + ": Gera uma idade inteira de 13 a 17 anos.\n\n"
 		+ "*" + GeradorIdadeAdulto.nomeComando + ": Gera uma idade de 18 a 64 anos.\n\n"
 		+ "*" + GeradorIdadeCrianca.nomeComando + ": Gera uma idade de 0 a 12 anos.\n\n"

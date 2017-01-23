@@ -10,6 +10,8 @@ cpf_form CPF_FORMATADO
 data DATA(01/01/2001, 10/01/2017)
 decimal DECIMAL(3, 2)
 email EMAIL
+estado ESTADO
+estado_sigla ESTADO_SIGLA
 fruta {'Cacau', 'Laranja', 'Uva'}
 idade_adolescente IDADE_ADOLESCENTE
 idade_adulto IDADE_ADULTO

@@ -79,6 +79,8 @@ public class Povoamento {
 		else if (GeradorData.checarComando(comando)) return gerar(new GeradorData(comando));
 		else if (GeradorDecimal.checarComando(comando)) return gerar(new GeradorDecimal(comando));
 		else if (GeradorEmail.checarComando(comando)) return gerar(new GeradorEmail(variaveis));
+		else if (GeradorEstado.checarComando(comando)) return gerar(new GeradorEstado());
+		else if (GeradorEstadoSigla.checarComando(comando)) return gerar(new GeradorEstadoSigla());
 		else if (GeradorIdadeAdolescente.checarComando(comando)) return gerar(new GeradorIdadeAdolescente());
 		else if (GeradorIdadeAdulto.checarComando(comando)) return gerar(new GeradorIdadeAdulto());
 		else if (GeradorIdadeCrianca.checarComando(comando)) return gerar(new GeradorIdadeCrianca());
