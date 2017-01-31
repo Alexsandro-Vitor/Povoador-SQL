@@ -1,0 +1,9 @@
+tp_pessoa TIPO(6)
+	nome NOME
+	email EMAIL
+	cpf CPF_FORMATADO
+	tp_telefone TIPO(2)
+		tel1 CELULAR_DDD_FORMATADO
+		tel2 CELULAR_DDD_FORMATADO
+	profissao PROFISSAO
+	cep CEP
