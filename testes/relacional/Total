@@ -3,7 +3,7 @@ cel_ddd CELULAR_DDD
 cel_ddd_form CELULAR_DDD_FORMATADO
 cel_form CELULAR_FORMATADO
 cep CEP
-chave CHAVE_INT
+chave CHAVE_INT(0)
 cnpj CNPJ
 cpf CPF
 cpf_form CPF_FORMATADO
