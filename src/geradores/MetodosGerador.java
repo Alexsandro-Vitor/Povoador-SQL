@@ -30,7 +30,7 @@ public class MetodosGerador {
 	}
 
 	//Gera um valor inteiro aleatorio no intervalo [minimo, maximo[
-	protected static int intAleatorio(int minimo, int maximo) {
+	public static int intAleatorio(int minimo, int maximo) {
 		return (minimo + Povoamento.random.nextInt(maximo - minimo));
 	}
 

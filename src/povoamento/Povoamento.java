@@ -89,7 +89,7 @@ public class Povoamento {
 		else if (GeradorNome.checarComando(comando)) return gerar(new GeradorNome(variaveis));
 		else if (GeradorPais.checarComando(comando)) return gerar(new GeradorPais());
 		else if (GeradorPlaca.checarComando(comando)) return gerar(new GeradorPlaca());
-		else if (GeradorProfissao.checarComando(comando)) return gerar(new GeradorProfissao());
+		else if (GeradorProfissao.checarComando(comando)) return gerar(new GeradorProfissao(variaveis));
 		else if (GeradorReferencia.checarComando(comando)) return gerar(new GeradorReferencia(comando));
 		else if (GeradorSexo.checarComando(comando)) return gerar(new GeradorSexo(variaveis));
 		else if (GeradorEspecial.checarComando(comando)) return gerar(new GeradorEspecial(comando));

@@ -104,8 +104,9 @@ public class GeradorNome extends GeradorAbstrato {
 	}
 
 	public String gerar() {
-		if (variaveis.sexo == 0) variaveis.sexo = MetodosGerador.intAleatorio(1, 3);
-		variaveis.nome = (variaveis.email == null) ? gerar(variaveis.sexo == 1) : gerarIniciais(variaveis.sexo == 1);
+		variaveis.definirSexo();
+		variaveis.nome = (variaveis.email == null) ?
+				gerar(variaveis.sexo == PovoamentoVariaveis.MASCULINO) : gerarIniciais(variaveis.sexo == PovoamentoVariaveis.MASCULINO);
 		if (variaveis.email == null) variaveis.email = gerarEmail(variaveis.nome);
 		return MetodosGerador.varchar(variaveis.nome);
 	}

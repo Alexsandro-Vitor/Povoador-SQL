@@ -16,8 +16,8 @@ public class GeradorSexo extends GeradorAbstrato {
 	}
 	
 	public String gerar() {
-		if (variaveis.sexo == 0) variaveis.sexo = MetodosGerador.intAleatorio(1, 3);
-		if (variaveis.sexo == 1) return MetodosGerador.varchar("M");
+		variaveis.definirSexo();
+		if (variaveis.sexo == PovoamentoVariaveis.MASCULINO) return MetodosGerador.varchar("M");
 		else return MetodosGerador.varchar("F");
 	}
 }
