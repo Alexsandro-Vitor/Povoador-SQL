@@ -51,7 +51,7 @@ public class Main extends JFrame {
 		setTitle("Povoador");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 300);
+		setBounds(100, 100, 700, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,21 +62,21 @@ public class Main extends JFrame {
 		contentPane.add(lblNomeDaTabela);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(115, 8, 186, 20);
+		txtNome.setBounds(115, 8, 249, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
 		lblSaidas = new JLabel("Sa\u00EDdas");
-		lblSaidas.setBounds(311, 8, 40, 20);
+		lblSaidas.setBounds(374, 8, 40, 20);
 		contentPane.add(lblSaidas);
 		
 		txtNumSaidas = new JTextField();
-		txtNumSaidas.setBounds(361, 8, 45, 20);
+		txtNumSaidas.setBounds(424, 8, 60, 20);
 		contentPane.add(txtNumSaidas);
 		txtNumSaidas.setColumns(10);
 		
 		JScrollPane spEntrada = new JScrollPane();
-		spEntrada.setBounds(10, 39, 170, 221);
+		spEntrada.setBounds(10, 39, 240, 321);
 		contentPane.add(spEntrada);
 		
 		taEntrada = new JTextArea();
@@ -84,7 +84,7 @@ public class Main extends JFrame {
 		spEntrada.setViewportView(taEntrada);
 		
 		JScrollPane spSaida = new JScrollPane();
-		spSaida.setBounds(190, 39, 394, 221);
+		spSaida.setBounds(260, 39, 424, 321);
 		contentPane.add(spSaida);
 		
 		taSaida = new JTextArea();
@@ -99,7 +99,7 @@ public class Main extends JFrame {
 				povoar();
 			}
 		});
-		btnPovoar.setBounds(416, 7, 79, 23);
+		btnPovoar.setBounds(494, 7, 90, 23);
 		contentPane.add(btnPovoar);
 		
 		JButton btnAjuda = new JButton("Ajuda");
@@ -109,7 +109,7 @@ public class Main extends JFrame {
 				ajuda();
 			}
 		});
-		btnAjuda.setBounds(505, 7, 79, 23);
+		btnAjuda.setBounds(594, 7, 90, 23);
 		contentPane.add(btnAjuda);
 	}
 	
