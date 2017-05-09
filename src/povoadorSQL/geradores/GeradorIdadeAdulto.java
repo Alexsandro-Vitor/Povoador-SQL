@@ -1,0 +1,30 @@
+package povoadorSQL.geradores;
+
+/**
+ * Classe que gera entradas de idades de adultos.
+ *
+ * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ */
+public class GeradorIdadeAdulto extends GeradorAbstrato {
+	/**
+	 * O comando para usar esta classe.
+	 */
+	public static final String NOME_COMANDO = "IDADE_ADULTO";
+	
+	/**
+	 * Checa se o comando recebido é o comando desta classe.
+	 * @param entrada Comando a ser checado
+	 * @return true se o comando for o correto, false se não for
+	 */
+	public static boolean checarComando(String entrada) {
+		return MetodosGerador.checarComando(entrada, NOME_COMANDO);
+	}
+	
+	/**
+	 * Gera uma idade de adulto não idoso.
+	 * @return Um número no intervalo [18, 64]
+	 */
+	public String gerar() {
+		return "" + MetodosGerador.intAleatorio(18, 65);
+	}
+}

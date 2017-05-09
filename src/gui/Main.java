@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import exception.NumeroInvalidoException;
-import povoamento.Povoamento;
+import povoadorSQL.exception.NumeroInvalidoException;
+import povoadorSQL.povoamento.Povoamento;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
