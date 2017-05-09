@@ -6,6 +6,7 @@ import povoadorSQL.povoamento.PovoamentoVariaveis;
  * Classe que gera nomes de pessoas.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorNome extends GeradorAbstrato {
 	private static String[] NOMES_MASCULINOS = {
@@ -115,6 +116,8 @@ public class GeradorNome extends GeradorAbstrato {
 	/**
 	 * Construtor de GeradorNome.
 	 * @param variaveis As variaveis do povoamento, onde está o email que será usado para gerar o nome e onde o nome será guardado após ser criado
+	 * @see GeradorEmail
+	 * @see PovoamentoVariaveis
 	 */
 	public GeradorNome(PovoamentoVariaveis variaveis) {
 		GeradorNome.variaveis = variaveis;

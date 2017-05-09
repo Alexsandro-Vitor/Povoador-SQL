@@ -1,15 +1,12 @@
 package povoadorSQL.geradores;
 
-import povoadorSQL.exception.ComandoInvalidoException;
-import povoadorSQL.exception.NumeroInvalidoException;
-import povoadorSQL.exception.ParametroInvalidoException;
-import povoadorSQL.exception.QtdParametrosInvalidaException;
 import povoadorSQL.povoamento.PovoamentoVariaveis;
 
 /**
  * Classe que gera um sexo.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorSexo extends GeradorAbstrato {
 	private PovoamentoVariaveis variaveis;
@@ -30,7 +27,8 @@ public class GeradorSexo extends GeradorAbstrato {
 	
 	/**
 	 * Construtor de GeradorSexo.
-	 * @param variaveis As variaveis do povoadorSQL.povoamento, onde o sexo gerado será guardado
+	 * @param variaveis As variaveis do povoamento, onde o sexo gerado será guardado
+	 * @see PovoamentoVariaveis
 	 */
 	public GeradorSexo(PovoamentoVariaveis variaveis) {
 		this.variaveis = variaveis;

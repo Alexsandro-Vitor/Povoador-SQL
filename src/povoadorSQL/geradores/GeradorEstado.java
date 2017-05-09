@@ -4,6 +4,7 @@ package povoadorSQL.geradores;
  * Classe que gera entradas de estados brasileiros.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorEstado extends GeradorAbstrato {
 	private static String[] estados = {

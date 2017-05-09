@@ -8,6 +8,7 @@ import povoadorSQL.exception.QtdParametrosInvalidaException;
  * Classe que gera referencias.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorReferencia extends GeradorAbstrato {
 	private String comando;

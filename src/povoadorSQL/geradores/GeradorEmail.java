@@ -7,6 +7,7 @@ import povoadorSQL.povoamento.PovoamentoVariaveis;
  * Classe que gera endereços de email.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorEmail extends GeradorAbstrato {
 	private PovoamentoVariaveis variaveis;
@@ -32,6 +33,8 @@ public class GeradorEmail extends GeradorAbstrato {
 	/**
 	 * Construtor de GeradorEmail.
 	 * @param variaveis As variaveis do povoamento, onde está o nome que será usado para gerar o email e onde o email será guardado após ser criado
+	 * @see GeradorNome
+	 * @see PovoamentoVariaveis
 	 */
 	public GeradorEmail(PovoamentoVariaveis variaveis) {
 		this.variaveis = variaveis;

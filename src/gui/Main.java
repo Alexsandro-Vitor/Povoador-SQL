@@ -113,7 +113,7 @@ public class Main extends JFrame {
 		contentPane.add(btnAjuda);
 	}
 	
-	void povoar() {
+	private void povoar() {
 		try {
 			String[] colunas = taEntrada.getText().split("\n");
 			Povoamento povoador = new Povoamento(txtNome.getText(), colunas);
@@ -131,12 +131,12 @@ public class Main extends JFrame {
 		
 	}
 	
-	void ajuda() {
+	private void ajuda() {
 		frame = new Ajuda();
 		frame.setVisible(true);
 	}
 	
-	void erro(String mensagem) {
+	private void erro(String mensagem) {
 		JOptionPane.showMessageDialog(this, mensagem);
 	}
 }

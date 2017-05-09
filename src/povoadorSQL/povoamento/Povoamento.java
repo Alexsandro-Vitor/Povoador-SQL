@@ -3,12 +3,25 @@ package povoadorSQL.povoamento;
 import java.util.ArrayList;
 import java.util.Random;
 
+import povoadorSQL.exception.ChavesDemaisException;
 import povoadorSQL.exception.ComandoInvalidoException;
+import povoadorSQL.exception.DataInvalidaException;
+import povoadorSQL.exception.NumeroInvalidoException;
+import povoadorSQL.exception.ParametroInvalidoException;
+import povoadorSQL.exception.QtdParametrosInvalidaException;
 import povoadorSQL.exception.QtdSaidasInvalidaException;
 import povoadorSQL.exception.SemNomeException;
 import povoadorSQL.geradores.*;
-
+/**
+ * Classe que produz povoamentos.
+ * 
+ * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
+ */
 public class Povoamento {
+	/**
+	 * Random utilizado pelos geradores.
+	 */
 	public static Random random = new Random();
 	private String nomeTabela;
 	private String parametros;
@@ -16,8 +29,14 @@ public class Povoamento {
 	private boolean modoOR;	//modoOR {true: Gera um povoadorSQL.povoamento OR; false: Gera um povoadorSQL.povoamento relacional}
 	private int identacoes;
 	private ArrayList<Integer> elementos;
-	public PovoamentoVariaveis variaveis;
+	private PovoamentoVariaveis variaveis;
 
+	/**
+	 * Construtor de Povoamento. Recebe nome e comandos para produzir um povoador.
+	 * @param nome Nome da tabela
+	 * @param entrada Array com os comandos do povoamento
+	 * @throws SemNomeException Se o nome da tabela estiver vazio
+	 */
 	public Povoamento(String nome, String[] entrada) throws SemNomeException {
 		if (nome.equals("")) throw new SemNomeException();
 		nomeTabela = nome.toLowerCase();
@@ -38,8 +57,21 @@ public class Povoamento {
 		parametros += ")";
 		elementos = new ArrayList<Integer>();
 	}
-
-	public String povoar(int qtd) throws Exception {
+	
+	/**
+	 * Produz um povoamento com a quantidade dada de inserções.
+	 * @param qtd A quantidade de inserções do povoamento
+	 * @return Um povoamento completo de uma tabela
+	 * @throws ChavesDemaisException Caso esteja gerando uma chave em um povoamento que já teve uma chave gerada
+	 * @throws ComandoInvalidoException Se houver algum erro na formatação do comando
+	 * @throws DataInvalidaException Se alguma data estiver mal formatada (4/5) ou não existir (30/02/2017)
+	 * @throws NumeroInvalidoException Se alguma entrada não for um número inteiro
+	 * @throws ParametroInvalidoException Se alguma entrada tiver valor inválido para o gerador
+	 * @throws QtdParametrosInvalidaException Se houver uma quantidade de parâmetros diferente da correta para o comando
+	 * @throws QtdSaidasInvalidaException Se a quantidade de saídas for menor ou igual a 0
+	 */
+	public String povoar(int qtd) throws ChavesDemaisException, ComandoInvalidoException, DataInvalidaException, NumeroInvalidoException,
+			ParametroInvalidoException, QtdParametrosInvalidaException, QtdSaidasInvalidaException {
 		if (qtd <= 0) throw new QtdSaidasInvalidaException();
 		String saida = "";
 		for (int i = 0; i < qtd; i++) {
@@ -53,7 +85,8 @@ public class Povoamento {
 		return entrada.toLowerCase().replace("	", "");
 	}
 
-	private String gerarInsercao(String chave) throws Exception {
+	private String gerarInsercao(String chave) throws ChavesDemaisException, ComandoInvalidoException, DataInvalidaException,
+			NumeroInvalidoException, ParametroInvalidoException, QtdParametrosInvalidaException {
 		String saida = "INSERT INTO " + nomeTabela + " ";
 		saida += modoOR ? ("VALUES (\n") : (parametros + " VALUES (\n") ;
 		variaveis = new PovoamentoVariaveis(chave);	//Variaveis para evitar inconsistencias
@@ -66,7 +99,8 @@ public class Povoamento {
 	}
 	
 	//Checa o comando e o executa se ele for reconhecido ou lança exceções se houver algum erro
-	private String executarComando(String comando, PovoamentoVariaveis variaveis) throws Exception {
+	private String executarComando(String comando, PovoamentoVariaveis variaveis) throws ChavesDemaisException, ComandoInvalidoException,
+			DataInvalidaException, NumeroInvalidoException, ParametroInvalidoException, QtdParametrosInvalidaException {
 		if (GeradorCelular.checarComando(comando)) return gerar(new GeradorCelular());
 		else if (GeradorCelularDdd.checarComando(comando)) return gerar(new GeradorCelularDdd());
 		else if (GeradorCelularDddFormatado.checarComando(comando)) return gerar(new GeradorCelularDddFormatado());
@@ -98,7 +132,7 @@ public class Povoamento {
 		else throw new ComandoInvalidoException(comando);
 	}
 	
-	/*Caso o povoadorSQL.povoamento esteja preenchendo um tipo OR, conta os elementos do tipo que
+	/* Caso o povoamento esteja preenchendo um tipo OR, conta os elementos do tipo que
 	 * ainda precisam ser gerados e os fecha se já tiver terminado de preenchê-los
 	 */
 	private String contarElementosTipo() {
@@ -138,7 +172,8 @@ public class Povoamento {
 	}
 
 	//Metodo para gerar entradas identadas
-	private String gerar(GeradorAbstrato gerador) throws Exception {
+	private String gerar(GeradorAbstrato gerador) throws ChavesDemaisException, ComandoInvalidoException, DataInvalidaException,
+			NumeroInvalidoException, ParametroInvalidoException, QtdParametrosInvalidaException {
 		return identar(identacoes) + "	" + gerador.gerar();
 	}
 

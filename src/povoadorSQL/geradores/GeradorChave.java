@@ -10,6 +10,7 @@ import povoadorSQL.povoamento.PovoamentoVariaveis;
  * Classe que gera chaves, formatadas como número ou texto.
  * 
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorChave extends GeradorAbstrato {
 	private String comando;
@@ -42,7 +43,7 @@ public class GeradorChave extends GeradorAbstrato {
 	/**
 	 * Construtor do gerador de chaves, recebe uma string com o comando e as variáveis do povoamento.
 	 * @param comando O comando para executar o método gerar
-	 * @param variaveis Contem a informação da existência ou não de outras chaves geradas no povoadorSQL.povoamento e de onde deve começar a contagem das chaves
+	 * @param variaveis Contem a informação da existência ou não de outras chaves geradas no povoamento e de onde deve começar a contagem das chaves
 	 */
 	public GeradorChave(String comando, PovoamentoVariaveis variaveis) {
 		this.comando = comando;

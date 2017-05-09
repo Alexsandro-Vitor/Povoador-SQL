@@ -6,6 +6,7 @@ import povoadorSQL.povoamento.PovoamentoVariaveis;
  * Classe que gera entradas de profissões.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorProfissao extends GeradorAbstrato {
 	private static final String[] PROFISSOES = {

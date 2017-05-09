@@ -6,6 +6,7 @@ import povoadorSQL.exception.ComandoInvalidoException;
  * Classe que gera entradas de uma linguagem regular.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorLinguagemRegular extends GeradorAbstrato {
 	private String comando;

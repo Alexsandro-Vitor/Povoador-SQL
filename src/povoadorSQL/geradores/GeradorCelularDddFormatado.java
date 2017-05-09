@@ -4,6 +4,7 @@ package povoadorSQL.geradores;
  * Classe que gera números de celular com DDD, com formatação.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorCelularDddFormatado extends GeradorCelularFormatado {
 	/**

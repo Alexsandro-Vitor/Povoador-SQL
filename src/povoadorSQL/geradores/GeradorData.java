@@ -9,6 +9,7 @@ import povoadorSQL.povoamento.Povoamento;
  * Classe que gera entradas de data.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorData extends GeradorAbstrato {
 	private String comando;

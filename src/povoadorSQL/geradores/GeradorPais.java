@@ -4,6 +4,7 @@ package povoadorSQL.geradores;
  * Classe que gera entradas de países.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorPais extends GeradorAbstrato {
 	private static String[] PAISES = {

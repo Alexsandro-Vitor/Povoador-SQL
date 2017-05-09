@@ -6,6 +6,7 @@ import povoadorSQL.exception.ComandoInvalidoException;
  * Classe que gera entradas aleatórias de um conjunto qualquer.
  *
  * @author Alexsandro Vítor Serafim de Carvalho - avsc@cin.ufpe.br
+ * @since v0.1.0
  */
 public class GeradorEspecial extends GeradorAbstrato {
 	private String comando;
